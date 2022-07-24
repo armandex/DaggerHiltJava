@@ -1,4 +1,4 @@
-pluginManagement {
+/*pluginManagement {
     repositories {
         gradlePluginPortal()
         google()
@@ -11,6 +11,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-}
+}*/
 rootProject.name = "Dagger Hilt Java"
 include ':app'
