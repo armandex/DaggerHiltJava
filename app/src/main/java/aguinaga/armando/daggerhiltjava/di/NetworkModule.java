@@ -14,8 +14,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 @Module
 @InstallIn(SingletonComponent.class)
@@ -52,8 +52,9 @@ public class NetworkModule {
         return new Retrofit.Builder()
                 .baseUrl(BASE)
                 .client(genericOkHttpClient)
-                .addConverterFactory(ScalarsConverterFactory.create())
+                //.addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
                 .create(MovieServiceApi.class);
     }

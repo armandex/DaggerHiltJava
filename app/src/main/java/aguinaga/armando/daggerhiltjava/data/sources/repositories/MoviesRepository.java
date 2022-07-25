@@ -8,6 +8,7 @@ import aguinaga.armando.daggerhiltjava.data.MoviesDataSource;
 import aguinaga.armando.daggerhiltjava.data.model.Movie;
 import aguinaga.armando.daggerhiltjava.data.model.ResponseMovies;
 import aguinaga.armando.daggerhiltjava.data.sources.remote.MoviesRemoteDataSource;
+import io.reactivex.rxjava3.core.Observable;
 
 public class MoviesRepository implements MoviesDataSource {
 
@@ -22,21 +23,12 @@ public class MoviesRepository implements MoviesDataSource {
     }
 
     @Override
-    public ResponseMovies getMoviesFromBackend(int page) {
+    public Observable<ResponseMovies> getMoviesFromBackend(int page) {
         return obtenerPeliculasEnCarteleraRemoto(page);
     }
 
-    @Override
-    public List<Movie> getMovies(int page) {
-        ResponseMovies moviesList = moviesRemoteDataSource.getMoviesFromBackend(page);
-        if (moviesList == null){
-            return null;
-        } else {
-            return moviesRemoteDataSource.getMoviesFromBackend(page).getResults();
-        }
-    }
 
-    private ResponseMovies obtenerPeliculasEnCarteleraRemoto(int page){
+    private Observable<ResponseMovies> obtenerPeliculasEnCarteleraRemoto(int page){
         return moviesRemoteDataSource.getMoviesFromBackend(page);
     }
 }

@@ -1,6 +1,7 @@
 package aguinaga.armando.daggerhiltjava.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.List;
+
+import aguinaga.armando.daggerhiltjava.data.model.Movie;
 import aguinaga.armando.daggerhiltjava.databinding.FragmentFirstBinding;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -36,12 +41,12 @@ public class FirstFragment extends Fragment {
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mainViewModel.modifyMyText(" Armando");
         mainViewModel.getObserverMovies(false, 1);
-       /* mainViewModel.getMovies().observe(getViewLifecycleOwner(),movies -> {
+        mainViewModel.getMovies().observe(getViewLifecycleOwner(), movies -> {
             if (movies != null){
                 Toast.makeText(requireContext(),"OK", Toast.LENGTH_LONG).show();
             }else
                 Toast.makeText(requireContext(),"NO OK", Toast.LENGTH_LONG).show();
-        });*/
+        });
         binding.buttonFirst.setOnClickListener(view1 -> {
             String greetings = mainViewModel.getMyText();
             Toast.makeText(requireContext(),greetings, Toast.LENGTH_LONG).show();

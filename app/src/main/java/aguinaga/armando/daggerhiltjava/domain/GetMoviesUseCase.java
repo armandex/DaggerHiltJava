@@ -5,7 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import aguinaga.armando.daggerhiltjava.data.model.Movie;
+import aguinaga.armando.daggerhiltjava.data.model.ResponseMovies;
 import aguinaga.armando.daggerhiltjava.data.sources.repositories.MoviesRepository;
+import io.reactivex.rxjava3.core.Observable;
 
 public class GetMoviesUseCase {
 
@@ -18,11 +20,11 @@ public class GetMoviesUseCase {
         this.moviesRepository = moviesRepository;
     }
 
-    public List<Movie> invoke(
+    public Observable<ResponseMovies> invoke(
             boolean forzarActualizacion,
             int page){
         moviesRepository.forzarActualizacion = forzarActualizacion;
 
-        return moviesRepository.getMovies(page);
+        return moviesRepository.getMoviesFromBackend(page);
     }
 }

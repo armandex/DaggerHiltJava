@@ -1,5 +1,7 @@
 package aguinaga.armando.daggerhiltjava.ui;
 
+import android.util.Log;
+
 import androidx.lifecycle.LifecycleCoroutineScope;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -13,9 +15,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import aguinaga.armando.daggerhiltjava.data.model.Movie;
+import aguinaga.armando.daggerhiltjava.data.model.ResponseMovies;
 import aguinaga.armando.daggerhiltjava.domain.GetMoviesUseCase;
 //import aguinaga.armando.daggerhiltjava.utils.CoroutineJava;
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class MainViewModel extends ViewModel {
@@ -28,21 +35,27 @@ public class MainViewModel extends ViewModel {
         this.getMoviesUseCase = getMoviesUseCase;
     }
 
-    private MutableLiveData<List<Movie>> _receiveMovies;
+    private MutableLiveData<List<Movie>> _receiveMovies = new MutableLiveData<>();
 
     public LiveData<List<Movie>> getMovies(){
         return _receiveMovies;
     }
 
     public void getObserverMovies(boolean value, int page) {
-        //getMoviesUseCase.invoke(value, page);
-        //_receiveMovies.setValue();
-/*        CoroutineJava coroutineJava = new CoroutineJava();
-        coroutineJava.launch(() -> {
-            getMoviesUseCase.invoke(value, page);
-            String aaa = "";
-            return null;
-        });*/
+         getMoviesUseCase.invoke(value,page)
+                .subscribeOn(Schedulers.io())
+                .map(responseMovies -> {
+                    List<Movie> lista = responseMovies.getResults();
+                    for (Movie movie: lista){
+
+                    }
+                    return lista;
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        result -> _receiveMovies.setValue(result),
+                        error -> Log.e("getObserverMovies: ", error.getMessage())
+                        );
     }
 
 

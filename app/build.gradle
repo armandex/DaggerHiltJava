@@ -45,10 +45,14 @@ dependencies {
     def retrofit = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
-    implementation "com.squareup.retrofit2:converter-scalars:$retrofit"
+    //implementation "com.squareup.retrofit2:converter-scalars:$retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit"
     //okhttp
     def okhttp = "4.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    //RxJava
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     //LIFECYCLE - VIEWMODEL - LIVEDATA
     def lifecycleViewLive = "2.5.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycleViewLive"
