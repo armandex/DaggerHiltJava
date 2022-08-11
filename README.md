@@ -4,5 +4,5 @@ In this application I have used clean architecture (SOLID + MVVM), retrofit, rxj
 
 Just download/clone, build and enjoy it.
 
-# It's similar to mymovieapp project
+Maybe you wants look my other project with kotlin
 https://github.com/armandex/mymovieapp
